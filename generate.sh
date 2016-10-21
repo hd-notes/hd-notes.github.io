@@ -14,6 +14,8 @@ FOOTER="</body>\n
 LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a><br>\n"
 
 echo -e $HEADER > index.html
+echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
+
 
 LINKS=""
 
