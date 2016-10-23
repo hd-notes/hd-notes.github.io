@@ -28,9 +28,9 @@ echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
 LINKS=""
 
 cd $DIR
-PDFS=$(find . -name '*.pdf' -type f)
+PDFS=$(find . -name '*.org' -type f)
 for pdf in $PDFS; do
-	URL=$(sed s/'^\.\/'//g <<< $pdf)
+	URL=$(sed s/'^\.\/'//g <<< $(sed s/org/pdf/ <<< $pdf))
 	NAME=$(cat $(sed s/pdf/org/ <<< $pdf) | grep '#+TITLE:' | sed s/'#+TITLE: '//)
 #	echo sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|"$URL"|' <<< $LINK)
 	LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK))" 
