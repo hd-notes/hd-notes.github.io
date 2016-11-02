@@ -28,7 +28,7 @@ echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
 LINKS=""
 
 cd $DIR
-PDFS=$(find . -name '*.org' -type f)
+PDFS=$(find . -mindepth 2 -maxdepth 2 -name '*.org' -type f)
 for pdf in $PDFS; do
 	URL=$(sed s/'^\.\/'//g <<< $(sed s/org/pdf/ <<< $pdf))
 	NAME=$(cat $(sed s/pdf/org/ <<< $pdf) | grep '#+TITLE:' | sed s/'#+TITLE: '//)
