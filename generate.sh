@@ -46,7 +46,7 @@ for pdf in $PDFS; do
 			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINKUB)) " 
 		done
 
-		LINKS+="<br>"
+		LINKS+="<br><br>"
 	fi
 done
 
