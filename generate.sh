@@ -37,6 +37,7 @@ for pdf in $PDFS; do
 	TUTORIALS="$(echo $(dirname $pdf)'/tutorial')"
 	NAME=0
 	if [ -d "$TUTORIALS" ]; then
+		LINKS+="<br>"
 		LINKS+="Übungszettel: "
 		TUTS=$(find $TUTORIALS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort)
 		for tut in $TUTS; do
