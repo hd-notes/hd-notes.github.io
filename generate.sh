@@ -20,6 +20,7 @@ FOOTER="</body>\n
 	</html>\n"
 	
 LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a><br>\n"
+LINKUB="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a>\n"
 
 echo -e $HEADER > index.html
 echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
@@ -34,8 +35,23 @@ for pdf in $PDFS; do
 	NAME=$(cat $(sed s/pdf/org/ <<< $pdf) | grep '#+TITLE:' | sed s/'#+TITLE: '//)
 #	echo sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|"$URL"|' <<< $LINK)
 	LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK))" 
+	TUTORIALS="$(echo $(dirname $pdf)'/tutorial')"
+	NAME=0
+	if [ -d "$TUTORIALS" ]; then
+		LINKS+="Übungszettel: "
+		TUTS=$(find $TUTORIALS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort)
+		for tut in $TUTS; do
+			URL=$(sed s/'^\.\/'//g <<< $pdf)
+			NAME=$(($NAME+1))
+			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINKUB))" 
+		done
+
+		LINKS+="<br>"
+	fi
 done
+
 cd - 2>&1 > /dev/null
 
 echo -e $LINKS >> index.html
 echo -e $FOOTER >> index.html
+
