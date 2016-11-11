@@ -41,9 +41,9 @@ for pdf in $PDFS; do
 		LINKS+="Übungszettel: "
 		TUTS=$(find $TUTORIALS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort)
 		for tut in $TUTS; do
-			URL=$(sed s/'^\.\/'//g <<< $pdf)
+			URL=$(sed s/'^\.\/'//g <<< $tut)
 			NAME=$(($NAME+1))
-			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINKUB))" 
+			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINKUB)) " 
 		done
 
 		LINKS+="<br>"
