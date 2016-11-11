@@ -19,8 +19,7 @@ HEADER="<!DOCTYPE html>\n
 FOOTER="</body>\n
 	</html>\n"
 	
-LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a><br>\n"
-LINKUB="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a>\n"
+LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a>\n"
 
 echo -e $HEADER > index.html
 echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
@@ -43,11 +42,11 @@ for pdf in $PDFS; do
 		for tut in $TUTS; do
 			URL=$(sed s/'^\.\/'//g <<< $tut)
 			NAME=$(($NAME+1))
-			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINKUB)) " 
+			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK)) " 
 		done
 
-		LINKS+="<br><br>"
 	fi
+	LINKS+="<br><br>"
 done
 
 cd - 2>&1 > /dev/null
