@@ -31,24 +31,27 @@ LINKS=""
 cd $DIR
 PDFS=$(find . -mindepth 2 -maxdepth 2 -name '*.org' -type f)
 for pdf in $PDFS; do
-	URL=$(sed s/'^\.\/'//g <<< $(sed s/org/pdf/ <<< $pdf))
+	PDF_PATH=$(sed s/org/pdf/ <<< $pdf)
+	URL=$(sed s/'^\.\/'//g <<< $PDF_PATH)
 	NAME=$(cat $(sed s/pdf/org/ <<< $pdf) | grep '#+TITLE:' | sed s/'#+TITLE: '//)
 #	echo sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|"$URL"|' <<< $LINK)
-	LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK))" 
-	TUTORIALS="$(echo $(dirname $pdf)'/tutorial')"
-	NAME=0
-	if [ -d "$TUTORIALS" ]; then
-		LINKS+="<br>"
-		LINKS+="Übungszettel: "
-		TUTS=$(find $TUTORIALS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort)
-		for tut in $TUTS; do
-			URL=$(sed s/'^\.\/'//g <<< $tut)
-			NAME=$(($NAME+1))
-			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK)) " 
-		done
+    if [ -f $PDF_PATH ]; then
+    	LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK))" 
+    	TUTORIALS="$(echo $(dirname $pdf)'/tutorial')"
+    	NAME=0
+    	if [ -d "$TUTORIALS" ]; then
+    		LINKS+="<br>"
+    		LINKS+="Übungszettel: "
+    		TUTS=$(find $TUTORIALS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort)
+    		for tut in $TUTS; do
+    			URL=$(sed s/'^\.\/'//g <<< $tut)
+    			NAME=$(($NAME+1))
+    			LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK)) " 
+    		done
 
-	fi
-	LINKS+="<br><br>"
+    	fi
+    	LINKS+="<br><br>"
+    fi
 done
 
 cd - 2>&1 > /dev/null
