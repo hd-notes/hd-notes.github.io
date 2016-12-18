@@ -8,8 +8,7 @@ HEADER="<!DOCTYPE html>\n
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n
-	})(window,document,'script','dataLayer','GTM-M79WG8');</script>\n
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n })(window,document,'script','dataLayer','GTM-M79WG8');</script>\n
 	</head>\n
 	<body>\n
 	<noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-M79WG8'\n
@@ -20,7 +19,7 @@ HEADER="<!DOCTYPE html>\n
 FOOTER="</body>\n
 	</html>\n"
 	
-LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a>\n"
+LINK="<a href=https://github.com/hd-notes/pdfs/raw/master/__URL__>__NAME__</a>\n"
 
 echo -e $HEADER > index.html
 echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
@@ -37,7 +36,7 @@ for pdf in $PDFS; do
 #	echo sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|"$URL"|' <<< $LINK)
     if [ -f $PDF_PATH ]; then
     	LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK))" 
-    	TUTORIALS="$(echo $(dirname $pdf)'/tutorial')"
+    	TUTORIALS="$(echo 'pdfs/'$(dirname $pdf)'/tutorial')"
     	NAME=0
     	if [ -d "$TUTORIALS" ]; then
     		LINKS+="<br>"
