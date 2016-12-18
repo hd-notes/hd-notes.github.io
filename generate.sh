@@ -20,7 +20,7 @@ HEADER="<!DOCTYPE html>\n
 FOOTER="</body>\n
 	</html>\n"
 	
-LINK="<a href=https://github.com/hd-notes/notes/raw/master/__URL__>__NAME__</a>\n"
+LINK="<a href=https://github.com/hd-notes/pdfs/raw/master/__URL__>__NAME__</a>\n"
 
 echo -e $HEADER > index.html
 echo -e "<h2> Stand: $(date)</h2>\n" >> index.html
