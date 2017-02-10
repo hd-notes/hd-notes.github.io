@@ -49,6 +49,20 @@ for pdf in $PDFS; do
             done
 
         fi
+
+        CHEATSHEETS="$(echo 'pdfs/'$(dirname $pdf)'/cheatsheet')"
+        NAME=0
+        if [ -d "$CHEATSHEETS" ]; then
+            LINKS+="<br>"
+            LINKS+="Cheatsheets: "
+            SHEETS=$(find $CHEATSHEETS -mindepth 1 -maxdepth 1 -type f -name '*.pdf' | sort -V)
+            for sheet in $SHEETS; do
+                URL=$(sed s/'^pdfs\/\.\/'//g <<< $sheet)
+                NAME=$(sed s/'\.pdf'//g <<< $URL)
+                LINKS+="$(sed 's|__NAME__|'"$NAME"'|' <<< $(sed 's|__URL__|'"$URL"'|' <<< $LINK)) "
+            done
+
+        fi
         LINKS+="<br><br>"
     fi
 done
